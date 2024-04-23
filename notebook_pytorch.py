@@ -22,6 +22,7 @@ import transformers
 from transformers import BertTokenizer, BertModel, AdamW, get_linear_schedule_with_warmup
 import pytorch_lightning as pl
 from torchmetrics import AUROC
+from pytorch_lightning.callbacks import RichProgressBar
 #from pytorch_lightning.metrics.functional.classification import auroc
 from sklearn.model_selection import train_test_split
 
@@ -213,23 +214,7 @@ class ToxicCommentClassifier(pl.LightningModule):
         self.log("test_loss", loss, prog_bar=True, logger=True)
         return loss
 
-    def training_epoch_end(self, outputs):
-        labels = []
-        predictions = []
-
-        for output in outputs:
-            for out_labels in output["labels"].detach().cpu():
-                labels.append(out_labels)
-
-            for out_predictions in output["predictions"].detach().cpu():
-                predictions.append(out_predictions)
-
-        labels = torch.stack(labels).int()
-        predictions = torch.stack(predictions)
-
-        for i, name in enumerate(CLASSES):
-            roc_score = AUROC(predictions[:, i], labels[:, i])
-            self.logger.experiment.add_scalar(f"{name}_roc_auc/Train", roc_score, self.current_epoch)
+   
 
     def configure_optimizers(self):
         optimizer = AdamW(self.parameters(), lr=2e-5)
@@ -244,7 +229,9 @@ model = ToxicCommentClassifier(
     n_epochs=EPOCHS
 )
 
-trainer = pl.Trainer(max_epochs=EPOCHS, accelerator='gpu')
+
+
+trainer = pl.Trainer(max_epochs=EPOCHS, accelerator='gpu', callbacks=[RichProgressBar()])
 
 trainer.fit(model, data_module)
 
