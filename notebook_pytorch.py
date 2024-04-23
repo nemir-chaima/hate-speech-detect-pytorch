@@ -161,7 +161,7 @@ class ToxicCommentDataModule(pl.LightningDataModule):
             num_workers=4
         )
 
-EPOCHS = 10
+EPOCHS = 20
 BATCH_SIZE = 32
 
 data_module = ToxicCommentDataModule(
