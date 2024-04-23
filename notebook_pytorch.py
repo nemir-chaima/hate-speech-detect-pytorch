@@ -26,10 +26,12 @@ from pytorch_lightning.callbacks import RichProgressBar
 #from pytorch_lightning.metrics.functional.classification import auroc
 from sklearn.model_selection import train_test_split
 
+
+print("importation fini")
 df = pd.read_csv("train-3.csv")
 
 
-
+print('df chargé')
 df.head()
 
 df.shape
@@ -62,6 +64,8 @@ train_df = pd.concat([toxic_df, clean_df])
 train_df.shape
 
 train_df[CLASSES].sum()
+print(" echantillon fait ")
+
 
 BERT_MODEL_NAME = "bert-base-cased"
 tokenizer = BertTokenizer.from_pretrained(BERT_MODEL_NAME)
@@ -230,15 +234,17 @@ model = ToxicCommentClassifier(
 )
 
 
+print("Model et tokenizer initialisés")
 
 trainer = pl.Trainer(max_epochs=EPOCHS, accelerator='gpu', callbacks=[RichProgressBar()])
 
 trainer.fit(model, data_module)
-
+print("l'entrainement est fini")
 trainer.test()
 
 trainer.save_checkpoint("last-checkpoint.ckpt")
-
+trainer.save("/home/grp/FilterAI_chaima")
+print("saved")
 """###**Predictions**"""
 
 trained_model = ToxicCommentClassifier.load_from_checkpoint("last-checkpoint.ckpt", n_classes=len(CLASSES))
@@ -267,3 +273,5 @@ for idx, label in enumerate(CLASSES):
         predictions.append((label, round(preds[idx]*100, 2)))
 
 predictions
+
+print(prediction)
