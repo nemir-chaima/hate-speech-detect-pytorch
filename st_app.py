@@ -1,16 +1,24 @@
-import streamlit as st 
-from notebook_pytorch import  trained_model
+import streamlit as st
+import torch
+#from notebook_pytorch import  trained_model
 from notebook_pytorch import tokenizer
-from notebook_pytorch import model
+from notebook_pytorch import ToxicCommentClassifier
 
+st.markdown(
+    """
+    <h1 style='text-align: center;'>Welcome to 'No Toxic Messages App'</h1>
+    """,
+    unsafe_allow_html=True  # Permet l'utilisation de HTML dans Streamlit
+)
 
+st.image('no_hate.png')
+test_example = st.text_input('Saisir un message à envoyer :point_down:', 'Text...')
+envoyer = st.button('Envoyer le message')
 
+model = ToxicCommentClassifier(n_classes=6)
+model.load_state_dict(torch.load('modele_pl.pt', map_location=torch.device('cpu')))
+model.freeze()
 CLASSES = ['toxic', 'severe_toxic', 'obscene', 'threat', 'insult', 'identity_hate']
-trained_model = trained_model
-trained_model.freeze()
-
-test_example = st.text_input('Saisissez un message à envoyer', 'I dont like you, I hate your texts those are really bullshit!')
-#test_example = "I dont like you, I hate your texts those are really bullshit!"
 
 
 encoding = tokenizer.encode_plus(
@@ -33,4 +41,16 @@ for idx, label in enumerate(CLASSES):
     if preds[idx] > 0.5:
         predictions.append((label, round(preds[idx]*100, 2)))
 
-predictions
+#predictions
+
+if envoyer: 
+    if len(predictions) > 0:
+        st.subheader("Votre message ne peut pas être envoyé :red_circle: :warning: :heavy_exclamation_mark:")
+
+        st.write('Votre message est : ')
+        for label, score in predictions:
+            st.write(f"- '{label}' : {score} %")
+    else:
+        st.subheader("Votre message est clean :white_check_mark:")
+        st.write(test_example)
+        
