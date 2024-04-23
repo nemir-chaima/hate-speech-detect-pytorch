@@ -31,6 +31,9 @@ print("importation fini")
 df = pd.read_csv("train-3.csv")
 
 
+print(torch.cuda.is_available())
+print(torch.version.cuda)
+
 print('df chargé')
 df.head()
 
@@ -274,4 +277,4 @@ for idx, label in enumerate(CLASSES):
 
 predictions
 
-print(prediction)
+print(predictions)
