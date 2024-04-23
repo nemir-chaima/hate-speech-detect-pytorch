@@ -135,7 +135,7 @@ class ToxicCommentDataModule(pl.LightningDataModule):
         self.batch_size = batch_size
         self.max_len = max_len
 
-    def setup(self):
+    def setup(self,stage=None):
         self.train_dataset = ToxicCommentsDataset(self.train_df, self.tokenizer, self.max_len)
         self.test_dataset = ToxicCommentsDataset(self.test_df, self.tokenizer, self.max_len)
 
@@ -243,6 +243,8 @@ trainer = pl.Trainer(max_epochs=EPOCHS, accelerator='gpu', callbacks=[RichProgre
 
 trainer.fit(model, data_module)
 print("l'entrainement est fini")
+torch.save(model.state_dict(), 'modele_pl.pt')
+print("le model est saved")
 trainer.test()
 
 trainer.save_checkpoint("last-checkpoint.ckpt")
