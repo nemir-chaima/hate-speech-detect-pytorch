@@ -239,44 +239,44 @@ model = ToxicCommentClassifier(
 
 print("Model et tokenizer initialisés")
 
-trainer = pl.Trainer(max_epochs=EPOCHS, accelerator='gpu', callbacks=[RichProgressBar()])
+#trainer = pl.Trainer(max_epochs=EPOCHS, accelerator='gpu', callbacks=[RichProgressBar()])
 
-trainer.fit(model, data_module)
+#trainer.fit(model, data_module)
 print("l'entrainement est fini")
-torch.save(model.state_dict(), 'modele2_pl.pt')
+#torch.save(model.state_dict(), 'modele2_pl.pt')
 print("le model est saved")
 #trainer.test()
 
-trainer.save_checkpoint("last-checkpoint.ckpt")
-trainer.save("/home/grp/FilterAI_chaima")
+#trainer.save_checkpoint("last-checkpoint.ckpt")
+#trainer.save("/home/grp/FilterAI_chaima")
 print("saved")
 """###**Predictions**"""
 
-trained_model = ToxicCommentClassifier.load_from_checkpoint("last-checkpoint.ckpt", n_classes=len(CLASSES))
-trained_model.freeze()
+#trained_model = ToxicCommentClassifier.load_from_checkpoint("last-checkpoint.ckpt", n_classes=len(CLASSES))
+#trained_model.freeze()
+##### for testinnng 
+#test_example = "I dont like you, I hate your texts those are really bullshit!"
 
-test_example = "I dont like you, I hate your texts those are really bullshit!"
+#encoding = tokenizer.encode_plus(
+ #   test_example,
+ #   add_special_tokens=True,
+ #   max_length=128,
+ #   return_token_type_ids=False,
+ #   padding="max_length",
+ #   truncation=True,
+ #   return_attention_mask=True,
+ #   return_tensors="pt"
+#)
 
-encoding = tokenizer.encode_plus(
-    test_example,
-    add_special_tokens=True,
-    max_length=128,
-    return_token_type_ids=False,
-    padding="max_length",
-    truncation=True,
-    return_attention_mask=True,
-    return_tensors="pt"
-)
+#model.eval()
+#_, preds = model(encoding["input_ids"], encoding["attention_mask"])
+#preds = preds.flatten().detach().numpy()
 
-model.eval()
-_, preds = model(encoding["input_ids"], encoding["attention_mask"])
-preds = preds.flatten().detach().numpy()
+#predictions = []
+#for idx, label in enumerate(CLASSES):
+ #   if preds[idx] > 0.5:
+ #       predictions.append((label, round(preds[idx]*100, 2)))
 
-predictions = []
-for idx, label in enumerate(CLASSES):
-    if preds[idx] > 0.5:
-        predictions.append((label, round(preds[idx]*100, 2)))
+#predictions
 
-predictions
-
-print(predictions)
+#print(predictions)
