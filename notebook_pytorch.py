@@ -243,9 +243,9 @@ trainer = pl.Trainer(max_epochs=EPOCHS, accelerator='gpu', callbacks=[RichProgre
 
 trainer.fit(model, data_module)
 print("l'entrainement est fini")
-torch.save(model.state_dict(), 'modele_pl.pt')
+torch.save(model.state_dict(), 'modele2_pl.pt')
 print("le model est saved")
-trainer.test()
+#trainer.test()
 
 trainer.save_checkpoint("last-checkpoint.ckpt")
 trainer.save("/home/grp/FilterAI_chaima")
