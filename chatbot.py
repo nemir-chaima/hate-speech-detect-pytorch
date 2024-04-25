@@ -2,15 +2,15 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 import streamlit as st
 
-st.markdown(
-        """
-        <h1 style='text-align: center;'>Welcome to 'No Toxic Messages App'</h1>
-        """,
-        unsafe_allow_html=True  # Permet l'utilisation de HTML dans Streamlit
-    )
+#st.markdown(
+  #      """
+  #      <h1 style='text-align: center;'>Welcome to 'No Toxic Messages App'</h1>
+  #      """,
+  #      unsafe_allow_html=True  # Permet l'utilisation de HTML dans Streamlit
+  #  )
 #st.image('no_hate.png')
 
-torch.cuda.empty_cache()
+#torch.cuda.empty_cache()
 
 #if 'messages' not in st.session_state:
  #   st.session_state.messages =[]
@@ -37,9 +37,10 @@ def moderate(chat):
 
 #prompt = st.chat_input('Saisir un message ..')
 #if prompt:
-text= input("Entrez votre nom : ")
+text= input("saisir le message : ")
 predictions = moderate([{"role": "user", "content": text }])
 
 #st.session_state.messages.append({'role':'user', 'content': prompt, 'prediction':f'{ predictions}'})
 
     #st.write(predictions)
+print(predictions)
