@@ -49,12 +49,12 @@ for i in range(15):
 #st.session_state.messages.append({'role':'user', 'content': prompt, 'prediction':f'{ predictions}'})
 
     #st.write(predictions)
-    print(predictions)
+    #print(predictions)
     
     if predictions[0]=='u':
-        print(predictions[8])
+        #print(predictions[8])
         print(' Message innaproprié')
         classe_predite = dic_classes[predictions[8]]
-        print("Il est :", classe_predite)
+        print("il est classé comme :", classe_predite)
     else :
         print('Votre message est safe ')
