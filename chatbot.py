@@ -44,4 +44,6 @@ predictions = moderate([{"role": "user", "content": text }])
 
     #st.write(predictions)
 print(predictions)
+predictions = predictions.tolist()
+print(predictions)
 print(type(predictions))
