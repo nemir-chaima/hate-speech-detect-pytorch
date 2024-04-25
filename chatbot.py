@@ -12,14 +12,14 @@ st.markdown(
 
 torch.cuda.empty_cache()
 
-if 'messages' not in st.session_state:
-    st.session_state.messages =[]
+#if 'messages' not in st.session_state:
+ #   st.session_state.messages =[]
 
-for message in st.session_state.messages:
+#for message in st.session_state.messages:
 
-    with st.chat_message(message['role']):
-        st.markdown(message['content'])
-        st.markdown(f"{message['prediction']}")
+#    with st.chat_message(message['role']):
+#        st.markdown(message['content'])
+#        st.markdown(f"{message['prediction']}")
         
 model_id = "meta-llama/Meta-Llama-Guard-2-8B"
 
