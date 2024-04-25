@@ -47,5 +47,5 @@ print(predictions)
 
 print(predictions[1])
 
-print(predictions[0])
+print(predictions[7])
 print(type(predictions))
