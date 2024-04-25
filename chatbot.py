@@ -50,8 +50,9 @@ for i in range(15):
 
     #st.write(predictions)
     print(predictions)
-    print(predictions[8])
+    
     if predictions[0]=='u':
+        print(predictions[8])
         print(' Message innaproprié')
         classe_predite = dic_classes[predictions[8]]
         print("Il est :", classe_predite)
