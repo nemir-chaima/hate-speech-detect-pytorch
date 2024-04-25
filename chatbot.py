@@ -34,6 +34,11 @@ def moderate(chat):
     output = model.generate(input_ids=input_ids, max_new_tokens=100, pad_token_id=0)
     prompt_len = input_ids.shape[-1]
     return tokenizer.decode(output[0][prompt_len:], skip_special_tokens=True)
+dic_classes = {'1':'Violent_crimes','2':'Non-violent Crimes',
+               '3': 'Sex-Related Crimes', '4': 'Child Sexual Exploitation',
+               '5': 'Specialized Advice','6':'Privacy','7':'Intellectual Property',
+               '8': 'Indiscriminate Xeapons', '9':'Hate',
+               '10': 'Suicide & Self-harm', "11": 'Sexual Content'}
 
 #prompt = st.chat_input('Saisir un message ..')
 #if prompt:
@@ -45,6 +50,10 @@ for i in range(15):
 
     #st.write(predictions)
     print(predictions)
-
-
     print(predictions[8])
+    if predictions[0]=='u':
+        print(' Message innaproprié')
+        classe_predite = dic_classes[predictions[8]]
+        print("Il est :", classe_predite)
+    else :
+        print('Votre message est safe ')
