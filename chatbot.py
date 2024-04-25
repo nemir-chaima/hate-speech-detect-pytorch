@@ -37,14 +37,14 @@ def moderate(chat):
 
 #prompt = st.chat_input('Saisir un message ..')
 #if prompt:
-text= input("saisir le message : ")
-predictions = moderate([{"role": "user", "content": text }])
+for i in range(15):
+    text= input("Saisir le message : ")
+    predictions = moderate([{"role": "user", "content": text }])
 
 #st.session_state.messages.append({'role':'user', 'content': prompt, 'prediction':f'{ predictions}'})
 
     #st.write(predictions)
-print(predictions)
+    print(predictions)
 
 
-print(predictions[8])
-print(type(predictions))
+    print(predictions[8])
