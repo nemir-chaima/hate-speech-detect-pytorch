@@ -35,10 +35,11 @@ def moderate(chat):
     prompt_len = input_ids.shape[-1]
     return tokenizer.decode(output[0][prompt_len:], skip_special_tokens=True)
 
-prompt = st.chat_input('Saisir un message ..')
-if prompt: 
-    predictions = moderate([{"role": "user", "content": prompt }])
+#prompt = st.chat_input('Saisir un message ..')
+#if prompt:
+text= input("Entrez votre nom : ")
+predictions = moderate([{"role": "user", "content": text }])
 
-    st.session_state.messages.append({'role':'user', 'content': prompt, 'prediction':f'{ predictions}'})
+#st.session_state.messages.append({'role':'user', 'content': prompt, 'prediction':f'{ predictions}'})
 
     #st.write(predictions)
