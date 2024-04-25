@@ -10,6 +10,8 @@ st.markdown(
     )
 #st.image('no_hate.png')
 
+torch.cuda.empty_cache()
+
 if 'messages' not in st.session_state:
     st.session_state.messages =[]
 
