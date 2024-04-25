@@ -46,5 +46,5 @@ predictions = moderate([{"role": "user", "content": text }])
 print(predictions)
 
 
-print(predictions[7])
+print(predictions[8])
 print(type(predictions))
