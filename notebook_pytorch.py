@@ -239,9 +239,9 @@ model = ToxicCommentClassifier(
 
 print("Model et tokenizer initialisés")
 
-#trainer = pl.Trainer(max_epochs=EPOCHS, accelerator='gpu', callbacks=[RichProgressBar()])
+trainer = pl.Trainer(max_epochs=EPOCHS, accelerator='gpu', callbacks=[RichProgressBar()]) # commenter cette ligne pour streamlit 
 
-#trainer.fit(model, data_module)
+trainer.fit(model, data_module) # commenter cette ligne pour streamlit 
 print("l'entrainement est fini")
 #torch.save(model.state_dict(), 'modele2_pl.pt')
 print("le model est saved")
