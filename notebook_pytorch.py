@@ -28,7 +28,7 @@ from sklearn.model_selection import train_test_split
 
 
 print("importation fini")
-df = pd.read_csv("train-3.csv")
+df = pd.read_csv("/Users/chaimanemir/Desktop/detection_pytorch/hate-speech-detect-pytorch/st_/pages/train-3.csv")
 
 
 print(torch.cuda.is_available())
@@ -161,7 +161,7 @@ class ToxicCommentDataModule(pl.LightningDataModule):
             num_workers=4
         )
 
-EPOCHS = 20
+EPOCHS = 15
 BATCH_SIZE = 32
 
 data_module = ToxicCommentDataModule(
@@ -237,46 +237,5 @@ model = ToxicCommentClassifier(
 )
 
 
-print("Model et tokenizer initialisés")
-
-trainer = pl.Trainer(max_epochs=EPOCHS, accelerator='gpu', callbacks=[RichProgressBar()]) # commenter cette ligne pour streamlit 
-
-trainer.fit(model, data_module) # commenter cette ligne pour streamlit 
-print("l'entrainement est fini")
-#torch.save(model.state_dict(), 'modele2_pl.pt')
-print("le model est saved")
-#trainer.test()
-
-#trainer.save_checkpoint("last-checkpoint.ckpt")
-#trainer.save("/home/grp/FilterAI_chaima")
-print("saved")
 """###**Predictions**"""
 
-#trained_model = ToxicCommentClassifier.load_from_checkpoint("last-checkpoint.ckpt", n_classes=len(CLASSES))
-#trained_model.freeze()
-##### for testinnng 
-#test_example = "I dont like you, I hate your texts those are really bullshit!"
-
-#encoding = tokenizer.encode_plus(
- #   test_example,
- #   add_special_tokens=True,
- #   max_length=128,
- #   return_token_type_ids=False,
- #   padding="max_length",
- #   truncation=True,
- #   return_attention_mask=True,
- #   return_tensors="pt"
-#)
-
-#model.eval()
-#_, preds = model(encoding["input_ids"], encoding["attention_mask"])
-#preds = preds.flatten().detach().numpy()
-
-#predictions = []
-#for idx, label in enumerate(CLASSES):
- #   if preds[idx] > 0.5:
- #       predictions.append((label, round(preds[idx]*100, 2)))
-
-#predictions
-
-#print(predictions)
